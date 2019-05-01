@@ -54,6 +54,7 @@ public class CommandLineInterface{
                     case "--filterEnd":
                     case "--infile":
                     case "--outfile":
+                    case "--outformat":
                     case "--msg":
                         params.put(param, args[i+1]);
                         i++; // Skip over next argument
@@ -97,6 +98,7 @@ public class CommandLineInterface{
         System.out.println("\t--infile <path>");
         System.out.println("\t--outfile <path>");
         System.out.println("\t--msg <path>");
+        System.out.println("\t--outformat <format>");
 
         System.out.println("\nAlgorithm Paramaters:");
         System.out.println("\t--startbits <num>");
@@ -127,6 +129,7 @@ public class CommandLineInterface{
         params.put("shotrange",     "-1");
         params.put("filterStart",   "-1");
         params.put("filterEnd",     "-1");
+        params.put("outformat",     "bmp");
 
         switch(params.get("algorithm").toLowerCase()){
             case "hideseek":
@@ -362,7 +365,8 @@ public class CommandLineInterface{
                 }else if(params.get("action").equals("encode")) {
                     CoverImage cimg = new CoverImage(istream);
                     InsertableMessage msg = new InsertableMessage(params.get("msg"));
-                    alg.encode(msg, cimg, getPassword(password));
+                    StegoImage oimg = alg.encode(msg, cimg, getPassword(password));
+                    oimg.write(params.get("outformat"), ostream);
                 }
                 istream.close();
                 ostream.close();

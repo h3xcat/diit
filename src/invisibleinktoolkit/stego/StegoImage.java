@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -73,11 +74,17 @@ public class StegoImage{
 	 * @throws IllegalArgumentException If the argurments are null.
 	 * @throws IOException If an error occurs during writing.
 	 */
-	public boolean write(String formatname, File output)throws 
-	IllegalArgumentException, IOException{
+	public boolean write(String formatname, File output)throws
+			IllegalArgumentException, IOException{
 		return ImageIO.write(mStego, formatname, output);
 	}
-	
+
+	public boolean write(String formatname, OutputStream output)throws
+			IllegalArgumentException, IOException{
+
+		return ImageIO.write(mStego, formatname, output);
+	}
+
 	/**
 	 * Gets the number of layers the image has.
 	 * <P>
